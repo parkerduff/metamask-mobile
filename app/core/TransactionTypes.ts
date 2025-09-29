@@ -1,4 +1,4 @@
-export default {
+export const TransactionTypes = {
   CUSTOM_GAS: {
     AVERAGE_GAS: 20,
     LOW_GAS: 10,
@@ -13,4 +13,9 @@ export default {
   },
   MMM: 'MetaMask Mobile',
   MM: 'metamask',
-};
+} as const;
+
+export type AssetType = typeof TransactionTypes.ASSET[keyof typeof TransactionTypes.ASSET];
+export type CustomGasKey = keyof typeof TransactionTypes.CUSTOM_GAS;
+
+export default TransactionTypes;

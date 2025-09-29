@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Migrate `app/core/TransactionTypes.js` to TypeScript ([#XXXXX](link-will-be-added-after-pr))
+- Migrate `app/core/PreventScreenshot.js` to TypeScript ([#XXXXX](link-will-be-added-after-pr))
+- Migrate `app/core/DrawerStatusTracker.js` to TypeScript ([#XXXXX](link-will-be-added-after-pr))
+
 ## [7.51.4]
 
 ### Fixed
