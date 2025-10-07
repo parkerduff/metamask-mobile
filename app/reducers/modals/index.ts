@@ -1,25 +1,41 @@
-const initialState = {
+/* eslint-disable @typescript-eslint/default-param-last */
+import { ModalActionType, ModalsAction } from '../../actions/modals';
+
+export interface ModalsState {
+  networkModalVisible: boolean;
+  shouldNetworkSwitchPopToWallet: boolean;
+  collectibleContractModalVisible: boolean;
+  dappTransactionModalVisible: boolean;
+  signMessageModalVisible: boolean;
+  infoNetworkModalVisible?: boolean;
+}
+
+const initialState: ModalsState = {
   networkModalVisible: false,
   shouldNetworkSwitchPopToWallet: false,
   collectibleContractModalVisible: false,
   dappTransactionModalVisible: false,
   signMessageModalVisible: true,
+  infoNetworkModalVisible: false,
 };
 
-const modalsReducer = (state = initialState, action) => {
+const modalsReducer = (
+  state: ModalsState = initialState,
+  action: ModalsAction,
+): ModalsState => {
   switch (action.type) {
-    case 'TOGGLE_NETWORK_MODAL':
+    case ModalActionType.TOGGLE_NETWORK_MODAL:
       return {
         ...state,
         networkModalVisible: !state.networkModalVisible,
         shouldNetworkSwitchPopToWallet: action.shouldNetworkSwitchPopToWallet,
       };
-    case 'TOGGLE_COLLECTIBLE_CONTRACT_MODAL':
+    case ModalActionType.TOGGLE_COLLECTIBLE_CONTRACT_MODAL:
       return {
         ...state,
         collectibleContractModalVisible: !state.collectibleContractModalVisible,
       };
-    case 'TOGGLE_DAPP_TRANSACTION_MODAL':
+    case ModalActionType.TOGGLE_DAPP_TRANSACTION_MODAL:
       if (action.show === false) {
         return {
           ...state,
@@ -31,9 +47,9 @@ const modalsReducer = (state = initialState, action) => {
         dappTransactionModalVisible:
           action.show === null
             ? !state.dappTransactionModalVisible
-            : action.show,
+            : action.show ?? !state.dappTransactionModalVisible,
       };
-    case 'TOGGLE_INFO_NETWORK_MODAL':
+    case ModalActionType.TOGGLE_INFO_NETWORK_MODAL:
       if (action.show === false) {
         return {
           ...state,
@@ -44,7 +60,7 @@ const modalsReducer = (state = initialState, action) => {
         ...state,
         infoNetworkModalVisible: !state.infoNetworkModalVisible,
       };
-    case 'TOGGLE_SIGN_MODAL':
+    case ModalActionType.TOGGLE_SIGN_MODAL:
       if (action.show === false) {
         return {
           ...state,
@@ -59,4 +75,5 @@ const modalsReducer = (state = initialState, action) => {
       return state;
   }
 };
+
 export default modalsReducer;
