@@ -48,7 +48,7 @@ describe(FlaskBuildTests('BIP-32 Snap Tests'), () => {
       async () => {
         await TestSnaps.fillMessage('messageSecp256k1Input', 'foo bar');
         await TestSnaps.tapButton('signMessageBip32Secp256k1Button');
-        await Assertions.checkIfTextIsDisplayed('Signature request');
+        await Assertions.expectTextDisplayed('Signature request');
         await TestSnaps.approveSignRequest();
         await TestSnaps.checkResultSpan(
           'bip32MessageResultSecp256k1Span',
@@ -66,7 +66,7 @@ describe(FlaskBuildTests('BIP-32 Snap Tests'), () => {
       async () => {
         await TestSnaps.fillMessage('messageEd25519Input', 'foo bar');
         await TestSnaps.tapButton('signMessageBip32ed25519Button');
-        await Assertions.checkIfTextIsDisplayed('Signature request');
+        await Assertions.expectTextDisplayed('Signature request');
         await TestSnaps.approveSignRequest();
         await TestSnaps.checkResultSpan(
           'bip32MessageResultEd25519Span',
@@ -84,7 +84,7 @@ describe(FlaskBuildTests('BIP-32 Snap Tests'), () => {
       async () => {
         await TestSnaps.fillMessage('messageEd25519Bip32Input', 'foo bar');
         await TestSnaps.tapButton('signMessageBip32ed25519Bip32Button');
-        await Assertions.checkIfTextIsDisplayed('Signature request');
+        await Assertions.expectTextDisplayed('Signature request');
         await TestSnaps.approveSignRequest();
         await TestSnaps.checkResultSpan(
           'bip32MessageResultEd25519Bip32Span',
@@ -103,7 +103,7 @@ describe(FlaskBuildTests('BIP-32 Snap Tests'), () => {
         await TestSnaps.selectInDropdown('bip32EntropyDropDown', 'SRP 1');
         await TestSnaps.fillMessage('messageSecp256k1Input', 'bar baz');
         await TestSnaps.tapButton('signMessageBip32Secp256k1Button');
-        await Assertions.checkIfTextIsDisplayed('Signature request');
+        await Assertions.expectTextDisplayed('Signature request');
         await TestSnaps.approveSignRequest();
         await TestSnaps.checkResultSpan(
           'bip32MessageResultSecp256k1Span',
@@ -122,7 +122,7 @@ describe(FlaskBuildTests('BIP-32 Snap Tests'), () => {
         await TestSnaps.selectInDropdown('bip32EntropyDropDown', 'SRP 2');
         await TestSnaps.fillMessage('messageSecp256k1Input', 'bar baz');
         await TestSnaps.tapButton('signMessageBip32Secp256k1Button');
-        await Assertions.checkIfTextIsDisplayed('Signature request');
+        await Assertions.expectTextDisplayed('Signature request');
         await TestSnaps.approveSignRequest();
         await TestSnaps.checkResultSpan(
           'bip32MessageResultSecp256k1Span',
@@ -141,7 +141,7 @@ describe(FlaskBuildTests('BIP-32 Snap Tests'), () => {
         await TestSnaps.selectInDropdown('bip32EntropyDropDown', 'Invalid');
         await TestSnaps.fillMessage('messageSecp256k1Input', 'bar baz');
         await TestSnaps.tapButton('signMessageBip32Secp256k1Button');
-        await Assertions.checkIfTextIsDisplayed(
+        await Assertions.expectTextDisplayed(
           'Entropy source with ID "invalid" not found.',
         );
       },

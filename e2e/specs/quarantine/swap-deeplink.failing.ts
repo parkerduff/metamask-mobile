@@ -16,11 +16,11 @@ import {
   getMockServerPort,
 } from '../../framework/fixtures/FixtureUtils.ts';
 import { SmokeTrade } from '../../tags.js';
-import Assertions from '../../utils/Assertions.js';
+import Assertions from '../../framework/Assertions';
 import { startMockServer, stopMockServer } from '../../api-mocking/mock-server';
 import QuoteView from '../../pages/swaps/QuoteView';
-import Matchers from '../../utils/Matchers.js';
-import Gestures from '../../utils/Gestures.js';
+import Matchers from '../../framework/Matchers';
+import Gestures from '../../framework/Gestures';
 import { Assertions as FrameworkAssertions } from '../../framework';
 import { testSpecificMock as swapTestSpecificMock } from '../swaps/helpers/swap-mocks.ts';
 import { localNodeOptions } from '../swaps/helpers/constants';
@@ -81,52 +81,72 @@ describe(
       await TestHelpers.openDeepLink(SWAP_DEEPLINK_FULL);
 
       // Handle "Proceed with caution" modal that appears for deep links
-      await Assertions.checkIfVisible(
+      await Assertions.expectElementToBeVisible(
         Matchers.getElementByText('Proceed with caution'),
-        10000,
+        {
+          timeout: 10000,
+          description: 'Proceed with caution modal should be visible',
+        },
       );
       await Gestures.waitAndTap(Matchers.getElementByText('Continue'));
 
       // Wait for bridge view to load after modal is dismissed
-      await FrameworkAssertions.expectElementToBeVisible(
+      await Assertions.expectElementToBeVisible(
         QuoteView.selectAmountLabel,
         {
           timeout: 10000,
+          description: 'Select amount label should be visible',
         },
       );
 
       // Verify we can navigate back
-      await Assertions.checkIfVisible(QuoteView.cancelButton, 10000);
+      await Assertions.expectElementToBeVisible(QuoteView.cancelButton, {
+        timeout: 10000,
+        description: 'Cancel button should be visible',
+      });
       await QuoteView.tapOnCancelButton();
 
       // Should be back on wallet view - check for wallet elements
-      await Assertions.checkIfNotVisible(QuoteView.selectAmountLabel, 5000);
+      await Assertions.expectElementToNotBeVisible(QuoteView.selectAmountLabel, {
+        timeout: 5000,
+        description: 'Select amount label should not be visible',
+      });
     });
 
     it('should navigate to bridge view with no parameters', async (): Promise<void> => {
       await TestHelpers.openDeepLink(SWAP_DEEPLINK_BASE);
 
       // Handle "Proceed with caution" modal that appears for deep links
-      await Assertions.checkIfVisible(
+      await Assertions.expectElementToBeVisible(
         Matchers.getElementByText('Proceed with caution'),
-        10000,
+        {
+          timeout: 10000,
+          description: 'Proceed with caution modal should be visible',
+        },
       );
       await Gestures.waitAndTap(Matchers.getElementByText('Continue'));
 
       // Wait for bridge view to load after modal is dismissed
-      await FrameworkAssertions.expectElementToBeVisible(
+      await Assertions.expectElementToBeVisible(
         QuoteView.selectAmountLabel,
         {
           timeout: 10000,
+          description: 'Select amount label should be visible',
         },
       );
 
       // Verify we can navigate back
-      await Assertions.checkIfVisible(QuoteView.cancelButton, 10000);
+      await Assertions.expectElementToBeVisible(QuoteView.cancelButton, {
+        timeout: 10000,
+        description: 'Cancel button should be visible',
+      });
       await QuoteView.tapOnCancelButton();
 
       // Should be back on wallet view - check for wallet elements
-      await Assertions.checkIfNotVisible(QuoteView.selectAmountLabel, 5000);
+      await Assertions.expectElementToNotBeVisible(QuoteView.selectAmountLabel, {
+        timeout: 5000,
+        description: 'Select amount label should not be visible',
+      });
     });
 
     it('should handle invalid deep link parameters gracefully', async (): Promise<void> => {
@@ -135,26 +155,36 @@ describe(
       await TestHelpers.openDeepLink(invalidDeeplink);
 
       // Handle "Proceed with caution" modal that appears for deep links
-      await Assertions.checkIfVisible(
+      await Assertions.expectElementToBeVisible(
         Matchers.getElementByText('Proceed with caution'),
-        10000,
+        {
+          timeout: 10000,
+          description: 'Proceed with caution modal should be visible',
+        },
       );
       await Gestures.waitAndTap(Matchers.getElementByText('Continue'));
 
       // Wait for bridge view to load after modal is dismissed
-      await FrameworkAssertions.expectElementToBeVisible(
+      await Assertions.expectElementToBeVisible(
         QuoteView.selectAmountLabel,
         {
           timeout: 10000,
+          description: 'Select amount label should be visible',
         },
       );
 
       // Verify we can navigate back
-      await Assertions.checkIfVisible(QuoteView.cancelButton, 10000);
+      await Assertions.expectElementToBeVisible(QuoteView.cancelButton, {
+        timeout: 10000,
+        description: 'Cancel button should be visible',
+      });
       await QuoteView.tapOnCancelButton();
 
       // Should be back on wallet view - check for wallet elements
-      await Assertions.checkIfNotVisible(QuoteView.selectAmountLabel, 5000);
+      await Assertions.expectElementToNotBeVisible(QuoteView.selectAmountLabel, {
+        timeout: 5000,
+        description: 'Select amount label should not be visible',
+      });
     });
   },
 );

@@ -82,7 +82,7 @@ describe(FlaskBuildTests('Get Entropy Snap Tests'), () => {
         await TestSnaps.fillMessage('entropyMessageInput', 'foo bar');
         await TestSnaps.tapButton('signEntropyMessageButton');
         await TestSnaps.approveSignRequest();
-        await Assertions.checkIfTextIsDisplayed(
+        await Assertions.expectTextDisplayed(
           'Entropy source with ID "invalid" not found.',
         );
       },

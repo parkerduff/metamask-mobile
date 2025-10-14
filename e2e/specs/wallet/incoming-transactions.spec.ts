@@ -142,7 +142,7 @@ describe(SmokeWalletPlatform('Incoming Transactions'), () => {
         await loginToApp();
         await TabBarComponent.tapActivity();
         await ActivitiesView.swipeDown();
-        await Assertions.checkIfTextIsDisplayed('Received ABC');
+        await Assertions.expectTextDisplayed('Received ABC');
       },
     );
   });
