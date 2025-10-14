@@ -151,8 +151,11 @@ xdescribe(
           await ConnectedAccountsModal.tapNavigateToEditNetworksPermissionsButton();
           await NetworkNonPemittedBottomSheet.tapSepoliaNetworkName();
           await NetworkNonPemittedBottomSheet.tapEthereumMainNetNetworkName();
-          await Assertions.checkIfVisible(
+          await Assertions.expectElementToBeVisible(
             ConnectedAccountsModal.disconnectNetworksButton,
+            {
+              description: 'Disconnect networks button should be visible',
+            },
           );
         },
       );

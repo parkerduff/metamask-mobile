@@ -3,8 +3,8 @@ import { device } from 'detox';
 import { addToQueue } from './helpers';
 import paramsToObj from '@open-rpc/test-coverage/build/utils/params-to-obj';
 import TestHelpers from '../helpers';
-import Matchers from '../utils/Matchers';
-import Gestures from '../utils/Gestures';
+import Matchers from '../framework/Matchers';
+import Gestures from '../framework/Gestures';
 import ConnectBottomSheet from '../pages/Browser/ConnectBottomSheet';
 import AssetWatchBottomSheet from '../pages/Transactions/AssetWatchBottomSheet';
 import SpamFilterModal from '../pages/Browser/SpamFilterModal';
@@ -14,7 +14,7 @@ import ConnectedAccountsModal from '../pages/Browser/ConnectedAccountsModal';
 // eslint-disable-next-line import/no-nodejs-modules
 import fs from 'fs';
 
-import Assertions from '../utils/Assertions';
+import Assertions from '../framework/Assertions';
 import PermissionSummaryBottomSheet from '../pages/Browser/PermissionSummaryBottomSheet';
 
 const getBase64FromPath = async (path) => {
@@ -72,9 +72,13 @@ export default class ConfirmationsRejectRule {
             await TestHelpers.delay(3000);
 
             try {
-              await Assertions.checkIfVisible(SpamFilterModal.title);
+              await Assertions.expectElementToBeVisible(SpamFilterModal.title, {
+                description: 'Spam filter modal should be visible',
+              });
               await SpamFilterModal.tapCloseButton();
-              await Assertions.checkIfNotVisible(SpamFilterModal.title);
+              await Assertions.expectElementToNotBeVisible(SpamFilterModal.title, {
+                description: 'Spam filter modal should not be visible after closing',
+              });
             } catch {
               /* eslint-disable no-console */
 
@@ -157,7 +161,9 @@ export default class ConfirmationsRejectRule {
             await AssetWatchBottomSheet.tapCancelButton();
           } else if (call.methodName === 'wallet_revokePermissions') {
             await BrowserView.tapLocalHostDefaultAvatar();
-            await Assertions.checkIfNotVisible(ConnectedAccountsModal.title);
+            await Assertions.expectElementToNotBeVisible(ConnectedAccountsModal.title, {
+              description: 'Connected accounts modal should not be visible after revoke',
+            });
           } else {
             cancelButton = await Matchers.getElementByText('Cancel');
             await Gestures.waitAndTap(cancelButton);

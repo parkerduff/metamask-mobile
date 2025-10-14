@@ -176,14 +176,16 @@ class NetworkView {
   }
 
   async SearchNetworkName(networkName: string): Promise<void> {
-    await Gestures.typeTextAndHideKeyboard(
-      this.networkSearchInput,
-      networkName,
-    );
+    await Gestures.typeText(this.networkSearchInput, networkName, {
+      hideKeyboard: true,
+      elemDescription: 'Network search input',
+    });
   }
   async longPressToRemoveNetwork(networkName: string): Promise<void> {
     const network = await this.getnetworkName(networkName);
-    await Gestures.tapAndLongPress(network as unknown as DetoxElement);
+    await Gestures.longPress(network as unknown as DetoxElement, {
+      elemDescription: `Long press to remove network ${networkName}`,
+    });
     await Gestures.waitAndTap(this.removeNetwork);
   }
 

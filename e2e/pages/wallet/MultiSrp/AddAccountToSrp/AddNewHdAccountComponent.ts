@@ -39,12 +39,13 @@ class AddNewHdAccountComponent {
   }
 
   async enterName(accountName: string) {
-    await Gestures.clearField(
-      this.nameInput as Promise<IndexableNativeElement>,
-    );
-    await Gestures.typeTextAndHideKeyboard(
+    await Gestures.typeText(
       this.nameInput as Promise<IndexableNativeElement>,
       accountName,
+      {
+        hideKeyboard: true,
+        elemDescription: 'Account name input',
+      },
     );
   }
 }

@@ -39,7 +39,9 @@ describe(
     it('should navigate to browser', async () => {
       await TestHelpers.delay(2000);
       await TabBarComponent.tapBrowser();
-      await Assertions.checkIfVisible(Browser.browserScreenID);
+      await Assertions.expectElementToBeVisible(Browser.browserScreenID, {
+        description: 'Browser screen should be visible',
+      });
     });
 
     it('should trigger connect modal in the test dapp', async () => {
@@ -112,7 +114,9 @@ describe(
       await TestHelpers.delay(4500);
       await TabBarComponent.tapBrowser();
       // Check that we are on the browser screen
-      await Assertions.expectElementToBeVisible(Browser.browserScreenID);
+      await Assertions.expectElementToBeVisible(Browser.browserScreenID, {
+        description: 'Browser screen should be visible',
+      });
     });
 
     it('imported account is not visible', async () => {

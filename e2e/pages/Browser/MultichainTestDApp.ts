@@ -149,14 +149,19 @@ class MultichainTestDApp {
       await loginToApp();
     }
     await TabBarComponent.tapBrowser();
-    await Assertions.checkIfVisible(Browser.browserScreenID);
+    await Assertions.expectElementToBeVisible(Browser.browserScreenID, {
+      description: 'Browser screen should be visible',
+    });
     await this.navigateToMultichainTestDApp(urlParams);
 
     // Verify WebView is visible
-    await Assertions.checkIfVisible(
+    await Assertions.expectElementToBeVisible(
       Promise.resolve(
         element(by.id(BrowserViewSelectorsIDs.BROWSER_WEBVIEW_ID)),
       ),
+      {
+        description: 'Browser WebView should be visible',
+      },
     );
   }
 

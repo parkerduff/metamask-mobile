@@ -25,9 +25,15 @@ describe(RegressionAssets('Unified UI Asset Details Actions'), () => {
         await WalletView.tapOnToken('Ethereum');
 
         // Verify essential action buttons are visible in asset details
-        await Assertions.checkIfVisible(TokenOverview.swapButton);
-        await Assertions.checkIfVisible(TokenOverview.sendButton);
-        await Assertions.checkIfVisible(TokenOverview.receiveButton);
+        await Assertions.expectElementToBeVisible(TokenOverview.swapButton, {
+          description: 'Swap button should be visible',
+        });
+        await Assertions.expectElementToBeVisible(TokenOverview.sendButton, {
+          description: 'Send button should be visible',
+        });
+        await Assertions.expectElementToBeVisible(TokenOverview.receiveButton, {
+          description: 'Receive button should be visible',
+        });
 
         // Note: Bridge button visibility depends on unified UI configuration
         // We test the overall functionality without specific environment setup
@@ -72,7 +78,9 @@ describe(RegressionAssets('Unified UI Asset Details Actions'), () => {
         await TokenOverview.tapSendButton();
 
         // Verify we navigated away from token overview
-        await Assertions.checkIfNotVisible(TokenOverview.container);
+        await Assertions.expectElementToNotBeVisible(TokenOverview.container, {
+          description: 'Token overview should not be visible after sending',
+        });
       },
     );
   });

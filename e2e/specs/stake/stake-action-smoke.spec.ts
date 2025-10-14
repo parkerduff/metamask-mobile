@@ -81,19 +81,29 @@ describe.skip(SmokeTrade('Stake from Actions'), (): void => {
   });
 
   it('should be able to import stake test account with funds', async (): Promise<void> => {
-    await Assertions.checkIfVisible(WalletView.container);
+    await Assertions.expectElementToBeVisible(WalletView.container, {
+      description: 'Wallet view container should be visible',
+    });
     await WalletView.tapIdenticon();
-    await Assertions.checkIfVisible(AccountListBottomSheet.accountList);
+    await Assertions.expectElementToBeVisible(AccountListBottomSheet.accountList, {
+      description: 'Account list should be visible',
+    });
     await AccountListBottomSheet.tapAddAccountButton();
     await AddAccountBottomSheet.tapImportAccount();
-    await Assertions.checkIfVisible(ImportAccountView.container);
+    await Assertions.expectElementToBeVisible(ImportAccountView.container, {
+      description: 'Import account view should be visible',
+    });
     await ImportAccountView.enterPrivateKey(
       process.env.MM_STAKE_TEST_ACCOUNT_PRIVATE_KEY || '',
     );
-    await Assertions.checkIfVisible(SuccessImportAccountView.container);
+    await Assertions.expectElementToBeVisible(SuccessImportAccountView.container, {
+      description: 'Success import account view should be visible',
+    });
     await SuccessImportAccountView.tapCloseButton();
     await AccountListBottomSheet.swipeToDismissAccountsModal();
-    await Assertions.checkIfVisible(WalletView.container);
+    await Assertions.expectElementToBeVisible(WalletView.container, {
+      description: 'Wallet view container should be visible',
+    });
   });
 
   it('should send ETH to new account', async (): Promise<void> => {
@@ -104,7 +114,9 @@ describe.skip(SmokeTrade('Stake from Actions'), (): void => {
     await AmountView.tapNextButton();
     await TransactionConfirmationView.tapConfirmButton();
     await TabBarComponent.tapActivity();
-    await Assertions.checkIfVisible(ActivitiesView.title);
+    await Assertions.expectElementToBeVisible(ActivitiesView.title, {
+      description: 'Activities view title should be visible',
+    });
     await Assertions.checkIfElementToHaveText(
       ActivitiesView.transactionStatus(FIRST_ROW),
       ActivitiesViewSelectorsText.CONFIRM_TEXT,
@@ -112,37 +124,57 @@ describe.skip(SmokeTrade('Stake from Actions'), (): void => {
     );
     // Wait fot toeast to clear
     await TestHelpers.delay(8000);
-    await Assertions.checkIfVisible(TabBarComponent.tabBarWalletButton);
+    await Assertions.expectElementToBeVisible(TabBarComponent.tabBarWalletButton, {
+      description: 'Tab bar wallet button should be visible',
+    });
     await TabBarComponent.tapWallet();
     // Waiting for funds to arrive
     await Assertions.checkIfTextIsNotDisplayed('$0', 60000);
   });
 
   it('should be able to import the new funded account', async (): Promise<void> => {
-    await Assertions.checkIfVisible(WalletView.container);
+    await Assertions.expectElementToBeVisible(WalletView.container, {
+      description: 'Wallet view container should be visible',
+    });
     await WalletView.tapIdenticon();
-    await Assertions.checkIfVisible(AccountListBottomSheet.accountList);
+    await Assertions.expectElementToBeVisible(AccountListBottomSheet.accountList, {
+      description: 'Account list should be visible',
+    });
     await AccountListBottomSheet.tapAddAccountButton();
     await AddAccountBottomSheet.tapImportAccount();
-    await Assertions.checkIfVisible(ImportAccountView.container);
+    await Assertions.expectElementToBeVisible(ImportAccountView.container, {
+      description: 'Import account view should be visible',
+    });
     await ImportAccountView.enterPrivateKey(wallet.privateKey);
-    await Assertions.checkIfVisible(SuccessImportAccountView.container);
+    await Assertions.expectElementToBeVisible(SuccessImportAccountView.container, {
+      description: 'Success import account view should be visible',
+    });
     await SuccessImportAccountView.tapCloseButton();
     await AccountListBottomSheet.swipeToDismissAccountsModal();
-    await Assertions.checkIfVisible(WalletView.container);
+    await Assertions.expectElementToBeVisible(WalletView.container, {
+      description: 'Wallet view container should be visible',
+    });
   });
 
   it('should Stake ETH', async (): Promise<void> => {
-    await Assertions.checkIfVisible(TabBarComponent.tabBarWalletButton);
+    await Assertions.expectElementToBeVisible(TabBarComponent.tabBarWalletButton, {
+      description: 'Tab bar wallet button should be visible',
+    });
     await WalletView.tapOnEarnButton();
-    await Assertions.checkIfVisible(StakeView.stakeContainer);
+    await Assertions.expectElementToBeVisible(StakeView.stakeContainer, {
+      description: 'Stake view container should be visible',
+    });
     await StakeView.enterAmount('.002');
     await StakeView.tapReview();
     await StakeView.tapContinue();
     await StakeConfirmView.tapConfirmButton();
     await TestHelpers.delay(2000);
-    await Assertions.checkIfVisible(ActivitiesView.title);
-    await Assertions.checkIfVisible(ActivitiesView.stakeDepositedLabel);
+    await Assertions.expectElementToBeVisible(ActivitiesView.title, {
+      description: 'Activities view title should be visible',
+    });
+    await Assertions.expectElementToBeVisible(ActivitiesView.stakeDepositedLabel, {
+      description: 'Stake deposited label should be visible',
+    });
     await Assertions.checkIfElementToHaveText(
       ActivitiesView.transactionStatus(FIRST_ROW),
       ActivitiesViewSelectorsText.CONFIRM_TEXT,
@@ -150,50 +182,72 @@ describe.skip(SmokeTrade('Stake from Actions'), (): void => {
     );
     // Wait fot toeast to clear
     await TestHelpers.delay(8000);
-    await Assertions.checkIfVisible(TabBarComponent.tabBarWalletButton);
+    await Assertions.expectElementToBeVisible(TabBarComponent.tabBarWalletButton, {
+      description: 'Tab bar wallet button should be visible',
+    });
     await TabBarComponent.tapWallet();
   });
 
   it('should Stake more ETH', async (): Promise<void> => {
-    await Assertions.checkIfVisible(TabBarComponent.tabBarWalletButton);
+    await Assertions.expectElementToBeVisible(TabBarComponent.tabBarWalletButton, {
+      description: 'Tab bar wallet button should be visible',
+    });
     await TabBarComponent.tapWallet();
-    await Assertions.checkIfVisible(WalletView.container);
+    await Assertions.expectElementToBeVisible(WalletView.container, {
+      description: 'Wallet view container should be visible',
+    });
     await WalletView.tapOnStakedEthereum();
     await TokenOverview.scrollOnScreen();
     await TestHelpers.delay(3000);
     await TokenOverview.tapStakeMoreButton();
-    await Assertions.checkIfVisible(StakeView.stakeContainer);
+    await Assertions.expectElementToBeVisible(StakeView.stakeContainer, {
+      description: 'Stake view container should be visible',
+    });
     await StakeView.enterAmount('.001');
     await StakeView.tapReview();
     await StakeView.tapContinue();
     await StakeConfirmView.tapConfirmButton();
     await TestHelpers.delay(10000);
-    await Assertions.checkIfVisible(ActivitiesView.title);
-    await Assertions.checkIfVisible(ActivitiesView.stakeDepositedLabel);
+    await Assertions.expectElementToBeVisible(ActivitiesView.title, {
+      description: 'Activities view title should be visible',
+    });
+    await Assertions.expectElementToBeVisible(ActivitiesView.stakeDepositedLabel, {
+      description: 'Stake deposited label should be visible',
+    });
     await Assertions.checkIfElementToHaveText(
       ActivitiesView.transactionStatus(FIRST_ROW),
       ActivitiesViewSelectorsText.CONFIRM_TEXT,
       120000,
     );
     await TestHelpers.delay(8000);
-    await Assertions.checkIfVisible(TabBarComponent.tabBarWalletButton);
+    await Assertions.expectElementToBeVisible(TabBarComponent.tabBarWalletButton, {
+      description: 'Tab bar wallet button should be visible',
+    });
     await TabBarComponent.tapWallet();
   });
 
   it('should Unstake ETH', async (): Promise<void> => {
-    await Assertions.checkIfVisible(WalletView.container);
+    await Assertions.expectElementToBeVisible(WalletView.container, {
+      description: 'Wallet view container should be visible',
+    });
     await WalletView.tapOnStakedEthereum();
     await TokenOverview.scrollOnScreen();
     await TestHelpers.delay(3000);
     await TokenOverview.tapUnstakeButton();
-    await Assertions.checkIfVisible(StakeView.unstakeContainer);
+    await Assertions.expectElementToBeVisible(StakeView.unstakeContainer, {
+      description: 'Unstake view container should be visible',
+    });
     await StakeView.enterAmount('.002');
     await StakeView.tapReview();
     await StakeView.tapContinue();
     await StakeConfirmView.tapConfirmButton();
     await TestHelpers.delay(15000);
-    await Assertions.checkIfVisible(ActivitiesView.title);
-    await Assertions.checkIfVisible(ActivitiesView.unstakeLabel);
+    await Assertions.expectElementToBeVisible(ActivitiesView.title, {
+      description: 'Activities view title should be visible',
+    });
+    await Assertions.expectElementToBeVisible(ActivitiesView.unstakeLabel, {
+      description: 'Unstake label should be visible',
+    });
     await Assertions.checkIfElementToHaveText(
       ActivitiesView.transactionStatus(FIRST_ROW),
       ActivitiesViewSelectorsText.CONFIRM_TEXT,
@@ -201,13 +255,19 @@ describe.skip(SmokeTrade('Stake from Actions'), (): void => {
     );
     // Wait fot toeast to clear
     await TestHelpers.delay(8000);
-    await Assertions.checkIfVisible(TabBarComponent.tabBarWalletButton);
+    await Assertions.expectElementToBeVisible(TabBarComponent.tabBarWalletButton, {
+      description: 'Tab bar wallet button should be visible',
+    });
     await TabBarComponent.tapWallet();
-    await Assertions.checkIfVisible(WalletView.container);
+    await Assertions.expectElementToBeVisible(WalletView.container, {
+      description: 'Wallet view container should be visible',
+    });
     await WalletView.tapOnStakedEthereum();
     await TokenOverview.scrollOnScreen();
     await TestHelpers.delay(3000);
-    await Assertions.checkIfVisible(TokenOverview.unstakingBanner);
+    await Assertions.expectElementToBeVisible(TokenOverview.unstakingBanner, {
+      description: 'Unstaking banner should be visible',
+    });
     await TokenOverview.tapBackButton();
   });
 
@@ -297,18 +357,21 @@ describe.skip(SmokeTrade('Stake from Actions'), (): void => {
     await TokenOverview.tapBackButton();
     //Wait for transaction to complete
     try {
-      await Assertions.checkIfTextIsDisplayed(
-        'Transaction #3 Complete!',
-        30000,
-      );
+      await Assertions.expectTextDisplayed('Transaction #3 Complete!', {
+        timeout: 30000,
+      });
       await TestHelpers.delay(8000);
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(`Transaction complete didn't pop up: ${e}`);
     }
     await TabBarComponent.tapActivity();
-    await Assertions.checkIfVisible(ActivitiesView.title);
-    await Assertions.checkIfVisible(ActivitiesView.stackingClaimLabel);
+    await Assertions.expectElementToBeVisible(ActivitiesView.title, {
+      description: 'Activities view title should be visible',
+    });
+    await Assertions.expectElementToBeVisible(ActivitiesView.stackingClaimLabel, {
+      description: 'Staking claim label should be visible',
+    });
     await Assertions.checkIfElementToHaveText(
       ActivitiesView.transactionStatus(FIRST_ROW),
       ActivitiesViewSelectorsText.CONFIRM_TEXT,
